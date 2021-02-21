@@ -116,12 +116,16 @@
 		
 			
 		fetch(document.getElementById("endpoint").value + "/" + id)
-		.then(response => response.json())
+		.then(response => {
+			if(!response.ok){
+				return Promise.reject('Network Error: 404')
+			}
+			return response.json()})
 		.then(data => {
 			document.getElementById("output").textContent = JSON.stringify(data);
 		})
 		.catch((error) => {
-			document.getElementById("output").textContent = JSON.stringify(error);
+			document.getElementById("output").textContent = error;
 		});
 			
       }
@@ -182,7 +186,11 @@
 				},
 				body: JSON.stringify(data)
 			})
-			.then(response => response.json())
+			.then(response => {
+			if(!response.ok){
+				return Promise.reject('Network Error: 404')
+			}
+			return response.json()})
 			.then(data => {
 				document.getElementById("output").textContent = JSON.stringify(data);
 			})
@@ -207,12 +215,16 @@
 			
 		fetch(document.getElementById("endpoint").value + "/" + id, {
 		method: 'delete'})
-		.then(response => response.json())
+		.then(response => {
+			if(!response.ok){
+				return Promise.reject('Network Error: 404')
+			}
+			return response.json()})
 		.then(data => {
 			document.getElementById("output").textContent = JSON.stringify(data);
 		})
 		.catch((error) => {
-			document.getElementById("output").textContent = JSON.stringify(error);
+			document.getElementById("output").textContent = error;
 		});
 			
       }
